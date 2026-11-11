@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "@clerk/nextjs": "^7.9.2",
+    "@clerk/ui": "^1.32.3"
+  },
+  "devDependencies": {
+    "prisma": "^8.0.0-rc.28"
+  }
+}
