@@ -1,0 +1,152 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider  = "postgresql"
+}
+
+enum UserRole {
+  USER
+  ADMIN
+}
+
+enum LotStatus {
+  AVAILABLE
+  RESERVED
+  SOLD
+  HOLD
+  CLOSED
+}
+
+enum PaymentType {
+  RESERVATION
+  DOWN_PAYMENT
+  AMORTIZATION
+}
+
+model Block {
+  id      Int   @id @default(autoincrement()) @db.SmallInt
+  blockNo Int   @unique @map("block_no") @db.SmallInt
+  lots    Lot[]
+
+  @@map("blocks")
+}
+
+model LotType {
+  id          Int     @id @default(autoincrement()) @db.SmallInt
+  name        String  @unique // CORNER or INNER
+  pricePerSqm Decimal @map("price_per_sqm") @db.Decimal(10, 2)
+  lots        Lot[]
+
+  @@map("lot_types")
+}
+
+model Lot {
+  id        String    @id @default(uuid()) @db.Uuid
+  blockId   Int       @map("block_id") @db.SmallInt
+  lotNo     Int       @map("lot_no") @db.SmallInt
+  lotTypeId Int       @map("lot_type_id") @db.SmallInt
+  sqm       Decimal   @db.Decimal(8, 2)
+  status    LotStatus @default(AVAILABLE)
+  streetName String?  @map("street_name")
+  mapShape  Json?     @map("map_shape") // clickable area on the interactive map
+  createdAt DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt DateTime  @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  block    Block     @relation(fields: [blockId], references: [id], onDelete: Restrict)
+  lotType  LotType   @relation(fields: [lotTypeId], references: [id], onDelete: Restrict)
+  contract Contract?
+
+  @@unique([blockId, lotNo])
+  @@index([status])
+  @@map("lots")
+}
+
+model Homeowner {
+  id          String     @id @default(uuid()) @db.Uuid
+  fullName    String     @map("full_name")
+  phone       String?
+  email       String?
+  homeAddress String?    @map("home_address")
+  createdAt   DateTime   @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt   DateTime   @updatedAt @map("updated_at") @db.Timestamptz(6)
+  contracts   Contract[]
+
+  @@index([fullName])
+  @@map("homeowners")
+}
+
+model PaymentTerm {
+  termMonths   Int        @id @map("term_months") @db.SmallInt // 12, 24, 36, 48
+  interestRate Decimal    @map("interest_rate") @db.Decimal(6, 4)
+  contracts    Contract[]
+
+  @@map("payment_terms")
+}
+
+model Contract {
+  id             String   @id @default(uuid()) @db.Uuid
+  lotId          String   @unique @map("lot_id") @db.Uuid
+  homeownerId    String   @map("homeowner_id") @db.Uuid
+  termMonths     Int      @map("term_months") @db.SmallInt
+  reservationFee Decimal  @map("reservation_fee") @db.Decimal(12, 2)
+  origTcp        Decimal  @map("orig_tcp") @db.Decimal(12, 2) // price before interest
+  dpAmount       Decimal  @map("dp_amount") @db.Decimal(12, 2) // 30 percent
+  dpMonthly      Decimal  @map("dp_monthly") @db.Decimal(12, 2) // 12 months, no interest
+  balanceAmount  Decimal  @map("balance_amount") @db.Decimal(12, 2) // 70 percent
+  monthlyAmort   Decimal  @map("monthly_amort") @db.Decimal(12, 2) // with interest
+  totalTcp       Decimal  @map("total_tcp") @db.Decimal(12, 2) // with interest
+  startDate      DateTime @map("start_date") @db.Date
+  createdAt      DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt      DateTime @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  lot       Lot         @relation(fields: [lotId], references: [id], onDelete: Restrict)
+  homeowner Homeowner   @relation(fields: [homeownerId], references: [id], onDelete: Restrict)
+  term      PaymentTerm @relation(fields: [termMonths], references: [termMonths], onDelete: Restrict)
+  payments  Payment[]
+
+  @@index([homeownerId])
+  @@map("contracts")
+}
+
+model Payment {
+  id          String      @id @default(uuid()) @db.Uuid
+  contractId  String      @map("contract_id") @db.Uuid
+  recordedBy  String      @map("recorded_by") @db.Uuid
+  amount      Decimal     @db.Decimal(12, 2)
+  paidOn      DateTime    @map("paid_on") @db.Date
+  paymentType PaymentType @map("payment_type")
+  referenceNo String?     @map("reference_no")
+  createdAt   DateTime    @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  contract Contract  @relation(fields: [contractId], references: [id], onDelete: Restrict)
+  recorder User      @relation(fields: [recordedBy], references: [id], onDelete: Restrict)
+
+  @@index([contractId, paidOn])
+  @@map("payments")
+}
+
+// Created automatically on first sign-in (see lib/admin.ts). Clerk owns the login;
+// this row exists so payments can point at a user and so roles live in your own database.
+// Everyone starts as USER. Change role to ADMIN in the Supabase table editor to promote someone.
+model User {
+  id        String   @id @default(uuid()) @db.Uuid
+  clerkId   String   @unique @map("clerk_id")
+  email     String   @unique
+  name      String?
+  imageUrl  String?  @map("image_url")
+  role      UserRole @default(USER)
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  payments Payment[]
+
+  @@map("users")
+}

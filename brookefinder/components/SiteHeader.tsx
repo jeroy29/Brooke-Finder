@@ -11,6 +11,16 @@ import {
     UserButton, 
     SignUpButton } from "@clerk/nextjs";
 import { usePathname } from "next/navigation";
+import { cn } from "@/lib/utils";
+
+
+const navLinks = [
+  { href: "/dashboard", label: "Dashboard" },
+  { href: "/map", label: "Lot map" },
+  { href: "/lots", label: "All lots" },
+  { href: "/calculator", label: "Calculator" },
+  { href: "/about", label: "About Us" },
+];
 
 const SiteHeader = () => {
     const pathname = usePathname();
@@ -35,17 +45,20 @@ const SiteHeader = () => {
         </Link> 
 
             {isLandingPage && (
-                <nav className="hidden items-center gap-8 text-sm text-muted-foreground md:flex">
-                    <Link href="/dashboard" className="transition-colors hover:text-foreground">
-                        Dashboard
-                    </Link>
-                    <Link
-                        href="/about"
-                        className="transition-colors hover:text-foreground"
-                    >
-                        About Us
-                    </Link>
-                </nav>
+            <nav className="hidden items-center gap-8 text-sm text-muted-foreground md:flex">
+                {navLinks.map((l) => (
+                <Link
+                    key={l.href}
+                    href={l.href}
+                    className={cn(
+                    "transition-colors hover:text-foreground",
+                    pathname.startsWith(l.href) && "font-medium text-foreground",
+                    )}
+                >
+                    {l.label}
+                </Link>
+                ))}
+            </nav>
             )}
 
             <div className="flex items-center gap-3">
