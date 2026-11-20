@@ -1,30 +1,30 @@
 import { Suspense } from "react";
-import { redirect } from "next/navigation";
-import { checkUser } from "@/actions/check-user";
+import { requireAdmin } from "@/lib/auth";
 import { PageHeader } from "@/components/PageHeader";
 import { DashboardOverview } from "@/components/dashboard/overview";
 import { Skeleton } from "@/components/ui/skeleton";
 
 async function DashboardContent() {
-  const user = await checkUser();
-  if (!user) redirect("/sign-in");
+  await requireAdmin();
 
   return <DashboardOverview />;
 }
 
 function DashboardSkeleton() {
   return (
-    <div className="space-y-6">
-      <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
+    <div className="space-y-4">
+      <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
         {Array.from({ length: 4 }).map((_, i) => (
-          <Skeleton key={i} className="h-24 rounded-2xl" />
+          <Skeleton key={i} className="h-[5.5rem] rounded-xl" />
         ))}
       </div>
-      <Skeleton className="h-32 rounded-2xl" />
-      <div className="grid gap-3 md:grid-cols-3">
-        {Array.from({ length: 3 }).map((_, i) => (
-          <Skeleton key={i} className="h-36 rounded-2xl" />
-        ))}
+      <div className="grid gap-4 lg:grid-cols-3">
+        <Skeleton className="h-[26rem] rounded-xl lg:col-span-2" />
+        <Skeleton className="h-[26rem] rounded-xl" />
+      </div>
+      <div className="grid gap-4 lg:grid-cols-3">
+        <Skeleton className="h-64 rounded-xl lg:col-span-2" />
+        <Skeleton className="h-64 rounded-xl" />
       </div>
     </div>
   );
@@ -32,7 +32,7 @@ function DashboardSkeleton() {
 
 export default function DashboardPage() {
   return (
-    <div className="mx-auto max-w-6xl space-y-6 p-4 sm:p-8">
+    <div className="mx-auto w-full max-w-[120rem] space-y-4 p-4 sm:p-5">
       <PageHeader title="Dashboard" description="Where Hidden Brooke stands today." />
       <Suspense fallback={<DashboardSkeleton />}>
         <DashboardContent />

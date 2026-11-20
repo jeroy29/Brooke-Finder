@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { cn } from "@/lib/utils";
-import type { LotDTO, LotStatus, MapShape } from "@/lib/types";
+import type { LotDTO, LotStatus, MapShape, PublicLotDTO } from "@/lib/types";
 import { STATUS_META, STATUS_ORDER } from "@/components/lots/status-badge";
 import { LotDetailsDialog } from "./lot-details-dialog";
 
@@ -28,8 +28,8 @@ type Layout = {
 };
 
 /** Fallback: blocks as panels in a grid, lots as tiles inside each panel. */
-function autoLayout(lots: LotDTO[]): Layout {
-  const byBlock = new Map<number, LotDTO[]>();
+function autoLayout(lots: PublicLotDTO[]): Layout {
+  const byBlock = new Map<number, PublicLotDTO[]>();
   for (const l of lots) {
     const arr = byBlock.get(l.blockNo) ?? [];
     arr.push(l);
@@ -79,7 +79,7 @@ function autoLayout(lots: LotDTO[]): Layout {
 }
 
 /** Used once every lot has a mapShape saved in the database. */
-function customLayout(lots: LotDTO[], width: number, height: number): Layout {
+function customLayout(lots: PublicLotDTO[], width: number, height: number): Layout {
   const shapes = new Map<string, MapShape>();
   for (const l of lots) if (l.mapShape) shapes.set(l.id, l.mapShape);
   return { width, height, blocks: [], shapes };
@@ -98,14 +98,18 @@ export function LotMap({
   lots,
   viewBoxSize = { width: 1500, height: 1500 },
   backgroundSrc,
+  canViewDetails = false,
 }: {
-  lots: LotDTO[];
+  /** Admins pass full lots (LotDTO); everyone else passes the public version. */
+  lots: PublicLotDTO[];
   /** Coordinate space of saved mapShape values. */
   viewBoxSize?: { width: number; height: number };
   /** Optional banner image drawn behind custom shapes, e.g. "/map/hidden-brooke.png". */
   backgroundSrc?: string;
+  /** Only admins may open the lot details dialog. */
+  canViewDetails?: boolean;
 }) {
-  const [selected, setSelected] = useState<LotDTO | null>(null);
+  const [selected, setSelected] = useState<PublicLotDTO | null>(null);
   const [shown, setShown] = useState<Set<LotStatus>>(new Set(STATUS_ORDER));
 
   const custom = lots.length > 0 && lots.every((l) => l.mapShape);
@@ -128,6 +132,9 @@ export function LotMap({
       return next;
     });
   }
+
+  // The dialog only ever receives full lot data, and only for admins.
+  const detailLot = canViewDetails ? (selected as LotDTO | null) : null;
 
   return (
     <div className="space-y-4">
@@ -192,7 +199,7 @@ export function LotMap({
             if (!shape) return null;
             const [cx, cy] = center(shape);
             const meta = STATUS_META[lot.status];
-            const isSelected = selected?.id === lot.id;
+            const isSelected = canViewDetails && selected?.id === lot.id;
             const shapeClass = cn(
               "stroke-1 transition-colors group-hover:stroke-2 group-focus-visible:stroke-[3]",
               meta.shape,
@@ -201,18 +208,23 @@ export function LotMap({
             return (
               <g
                 key={lot.id}
-                role="button"
-                tabIndex={0}
+                role={canViewDetails ? "button" : "img"}
+                tabIndex={canViewDetails ? 0 : undefined}
                 aria-label={`Block ${lot.blockNo} Lot ${lot.lotNo}, ${meta.label}`}
-                onClick={() => setSelected(lot)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") {
-                    e.preventDefault();
-                    setSelected(lot);
-                  }
-                }}
+                onClick={canViewDetails ? () => setSelected(lot) : undefined}
+                onKeyDown={
+                  canViewDetails
+                    ? (e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          e.preventDefault();
+                          setSelected(lot);
+                        }
+                      }
+                    : undefined
+                }
                 className={cn(
-                  "group cursor-pointer outline-none transition-opacity",
+                  "group outline-none transition-opacity",
+                  canViewDetails && "cursor-pointer",
                   !shown.has(lot.status) && "opacity-20",
                 )}
               >
@@ -263,8 +275,8 @@ export function LotMap({
       </div>
 
       <LotDetailsDialog
-        lot={selected}
-        open={selected !== null}
+        lot={detailLot}
+        open={detailLot !== null}
         onOpenChange={(o) => {
           if (!o) setSelected(null);
         }}

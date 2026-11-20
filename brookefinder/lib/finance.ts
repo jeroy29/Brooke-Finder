@@ -101,3 +101,13 @@ export function formatPeso(n: number): string {
 export function formatMonthYear(iso: string): string {
   return new Date(iso).toLocaleDateString("en-PH", { month: "long", year: "numeric" });
 }
+
+export function formatPesoCompact(n: number): string {
+  return new Intl.NumberFormat("en-PH", {
+    style: "currency",
+    currency: "PHP",
+    notation: "compact",
+    maximumFractionDigits: 1,
+  }).format(n);
+}
+ 

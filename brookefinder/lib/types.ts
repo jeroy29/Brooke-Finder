@@ -40,4 +40,30 @@ export type LotDTO = {
   contract: ContractDTO | null;
 };
 
+/** What a regular (non-admin) user may see: no prices, homeowners, contracts or payments. */
+export type PublicLotDTO = Pick<
+  LotDTO,
+  "id" | "blockNo" | "lotNo" | "lotType" | "sqm" | "status" | "streetName" | "mapShape"
+>;
+
 export type PaymentTermDTO = { termMonths: number; interestRate: number };
+
+export type PaymentType = "RESERVATION" | "DOWN_PAYMENT" | "AMORTIZATION";
+
+export type RecentPaymentDTO = {
+  id: string;
+  amount: number;
+  paidOn: string; // ISO
+  paymentType: PaymentType;
+  homeownerName: string;
+  blockNo: number;
+  lotNo: number;
+};
+
+export type PaymentSummaryDTO = {
+  monthly: { month: string; label: string; amount: number }[]; // last 12 months, oldest first
+  byType: Record<PaymentType, number>;
+  thisMonth: number;
+  lastMonth: number;
+  recent: RecentPaymentDTO[];
+};
