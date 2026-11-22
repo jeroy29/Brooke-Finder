@@ -111,7 +111,7 @@ export function InterestCalculator({
         </div>
 
         <div className="space-y-2">
-          <Label>Payment term</Label>
+          <Label>Payment term/Amortization</Label>
           <Select value={termMonths} onValueChange={setTermMonths}>
             <SelectTrigger>
               <SelectValue />
@@ -119,7 +119,7 @@ export function InterestCalculator({
             <SelectContent>
               {terms.map((t) => (
                 <SelectItem key={t.termMonths} value={String(t.termMonths)}>
-                  {t.termMonths} months · {(t.interestRate * 100).toFixed(2)}% interest
+                  {t.termMonths} months · {(t.interestRate * 100).toFixed(2)}% per month
                 </SelectItem>
               ))}
             </SelectContent>
@@ -163,7 +163,7 @@ export function InterestCalculator({
               <Line label={`Monthly down payment (${DP_MONTHS} months, no interest)`} value={formatPeso(result.dpMonthly)} />
               <Line label="Capital balance (price - down payment - reservation)" value={formatPeso(result.balanceAmount)} />
               <Line
-                label={`Interest (${(result.interestRate * 100).toFixed(2)}% of capital balance)`}
+                label={`Interest (${(result.interestRate * 100).toFixed(2)}% a month on what is still owed)`}
                 value={formatPeso(result.interestAmount)}
               />
               <Line label="Balance with interest" value={formatPeso(result.balanceWithInterest)} />

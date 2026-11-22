@@ -38,7 +38,7 @@ export function LotsTable({ lots, initialQuery = "" }: { lots: LotDTO[]; initial
       if (status !== "ALL" && l.status !== status) return false;
       if (block !== "ALL" && l.blockNo !== Number(block)) return false;
       if (!term) return true;
-      const hay = [`block ${l.blockNo}`, `b${l.blockNo}`, `lot ${l.lotNo}`, `l${l.lotNo}`, l.streetName, l.contract?.homeownerName]
+      const hay = [`block ${l.blockNo}`, `b${l.blockNo}`, `lot ${l.lotNo}`, `l${l.lotNo}`, l.contract?.homeownerName]
         .filter(Boolean)
         .join(" ")
         .toLowerCase();
@@ -52,7 +52,7 @@ export function LotsTable({ lots, initialQuery = "" }: { lots: LotDTO[]; initial
         <Input
           value={q}
           onChange={(e) => setQ(e.target.value)}
-          placeholder="Search homeowner, street, or block and lot"
+          placeholder="Search homeowner, or block and lot"
           className="sm:max-w-sm"
         />
         <Select value={block} onValueChange={setBlock}>
@@ -92,7 +92,6 @@ export function LotsTable({ lots, initialQuery = "" }: { lots: LotDTO[]; initial
             <TableRow className="bg-muted/50 hover:bg-muted/50">
               <TableHead>Block</TableHead>
               <TableHead>Lot</TableHead>
-              <TableHead>Street</TableHead>
               <TableHead>Type</TableHead>
               <TableHead className="text-right">Sqm</TableHead>
               <TableHead className="text-right">Lot price</TableHead>
@@ -107,7 +106,7 @@ export function LotsTable({ lots, initialQuery = "" }: { lots: LotDTO[]; initial
           <TableBody>
             {rows.length === 0 && (
               <TableRow>
-                <TableCell colSpan={12} className="h-24 text-center text-muted-foreground">
+                <TableCell colSpan={11} className="h-24 text-center text-muted-foreground">
                   No lots match these filters.
                 </TableCell>
               </TableRow>
@@ -126,7 +125,6 @@ export function LotsTable({ lots, initialQuery = "" }: { lots: LotDTO[]; initial
                 >
                   <TableCell className="font-medium">{l.blockNo}</TableCell>
                   <TableCell className="font-medium">{l.lotNo}</TableCell>
-                  <TableCell>{l.streetName ?? dash}</TableCell>
                   <TableCell>{l.lotType === "CORNER" ? "Corner" : "Inner"}</TableCell>
                   <TableCell className="text-right tabular-nums">{l.sqm}</TableCell>
                   <TableCell className="text-right tabular-nums">{formatPeso(l.fullPrice)}</TableCell>

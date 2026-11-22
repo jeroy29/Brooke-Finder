@@ -1,8 +1,8 @@
 import { STATUS_META } from "@/components/lots/status-badge";
 import { cn } from "@/lib/utils";
-import type { LotDTO, LotStatus } from "@/lib/types";
+import type { LotStatus } from "@/lib/types";
 
-export function LotStats({ lots }: { lots: LotDTO[] }) {
+export function LotStats({ lots }: { lots: { status: LotStatus }[] }) {
   const count = (s: LotStatus) => lots.filter((l) => l.status === s).length;
   const items: { label: string; value: number; dot?: string }[] = [
     { label: "Total lots", value: lots.length },

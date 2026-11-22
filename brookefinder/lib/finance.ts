@@ -1,24 +1,20 @@
-/**
- * Hidden Brooke computation (from the sales sheet), e.g. TCP 750,000:
- *  1. Down payment = TCP x 30%  -> 225,000, payable in 12 months, no interest
- *  2. Capital balance = TCP - down payment - reservation fee
- *     -> 750,000 - 225,000 - 10,000 = 515,000
- *  3. Monthly amortization = (capital balance + 12% interest) / term months
- *     (12, 24, 36 or 48 depending on the term chosen)
- *
- * Still assumed (not on the sheet): amortization starts after the 12 down
- * payment months, and PaymentTerm.interestRate holds the total add-on rate
- * (0.12 = 12%), so store 0.12 for every term if the rate is flat.
- */
 export const DP_RATE = 0.3;
 export const DP_MONTHS = 12;
+export const MONTHLY_RATE = 0.0175; // default; the real value comes from PaymentTerm.interestRate
+export const PAYMENT_STEP = 5; // monthly payments are rounded to the nearest PHP 5
 
 const round2 = (n: number) => Math.round((n + Number.EPSILON) * 100) / 100;
+
+function loanPayment(principal: number, monthlyRate: number, months: number): number {
+  if (principal <= 0) return 0;
+  if (monthlyRate === 0) return principal / months;
+  return (principal * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -months));
+}
 
 export type InstallmentInput = {
   tcp: number; // lot price before interest
   termMonths: number;
-  interestRate: number; // e.g. 0.12
+  interestRate: number; // MONTHLY rate, e.g. 0.0175
   reservationFee: number;
 };
 
@@ -37,13 +33,17 @@ export type InstallmentResult = {
 };
 
 export function computeInstallment(i: InstallmentInput): InstallmentResult {
+  if (!Number.isInteger(i.termMonths) || i.termMonths <= 0) {
+    throw new Error("termMonths must be a positive whole number");
+  }
   const dpAmount = round2(i.tcp * DP_RATE);
   const dpMonthly = round2(dpAmount / DP_MONTHS);
   // Capital balance: reservation is deducted from the balance, not from the down payment.
   const balanceAmount = Math.max(round2(i.tcp - dpAmount - i.reservationFee), 0);
-  const interestAmount = round2(balanceAmount * i.interestRate);
-  const balanceWithInterest = round2(balanceAmount + interestAmount);
-  const monthlyAmort = round2(balanceWithInterest / i.termMonths);
+  const monthlyAmort =
+    Math.round(loanPayment(balanceAmount, i.interestRate, i.termMonths) / PAYMENT_STEP) * PAYMENT_STEP;
+  const balanceWithInterest = round2(monthlyAmort * i.termMonths);
+  const interestAmount = round2(balanceWithInterest - balanceAmount);
   const totalTcp = round2(dpAmount + i.reservationFee + balanceWithInterest);
   return {
     tcp: i.tcp,
@@ -84,9 +84,14 @@ export function buildSchedule(r: InstallmentResult): ScheduleRow[] {
   return rows;
 }
 
+// Adds whole months without skipping a month (Jan 31 + 1 month = Feb 28, not Mar 3).
 export function addMonths(date: Date, months: number): Date {
   const d = new Date(date);
+  const day = d.getDate();
+  d.setDate(1);
   d.setMonth(d.getMonth() + months);
+  const lastDay = new Date(d.getFullYear(), d.getMonth() + 1, 0).getDate();
+  d.setDate(Math.min(day, lastDay));
   return d;
 }
 
@@ -100,4 +105,13 @@ export function formatPeso(n: number): string {
 
 export function formatMonthYear(iso: string): string {
   return new Date(iso).toLocaleDateString("en-PH", { month: "long", year: "numeric" });
+}
+
+export function formatPesoCompact(n: number): string {
+  return new Intl.NumberFormat("en-PH", {
+    style: "currency",
+    currency: "PHP",
+    notation: "compact",
+    maximumFractionDigits: 1,
+  }).format(n);
 }

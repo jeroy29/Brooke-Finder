@@ -30,7 +30,7 @@ export type LotDTO = {
   id: string;
   blockNo: number;
   lotNo: number;
-  lotType: string; // CORNER | INNER
+  lotType: string; 
   sqm: number;
   pricePerSqm: number;
   fullPrice: number; // sqm x price per sqm, before interest
@@ -40,4 +40,30 @@ export type LotDTO = {
   contract: ContractDTO | null;
 };
 
+/** Nakikita ng regular users sa map: no prices, homeowners, contracts or payments. */
+export type PublicLotDTO = Pick<
+  LotDTO,
+  "id" | "blockNo" | "lotNo" | "lotType" | "sqm" | "status" | "streetName" | "mapShape"
+>;
+
 export type PaymentTermDTO = { termMonths: number; interestRate: number };
+
+export type PaymentType = "RESERVATION" | "DOWN_PAYMENT" | "AMORTIZATION";
+
+export type RecentPaymentDTO = {
+  id: string;
+  amount: number;
+  paidOn: string;
+  paymentType: PaymentType;
+  homeownerName: string;
+  blockNo: number;
+  lotNo: number;
+};
+
+export type PaymentSummaryDTO = {
+  monthly: { month: string; label: string; amount: number }[]; 
+  byType: Record<PaymentType, number>;
+  thisMonth: number;
+  lastMonth: number;
+  recent: RecentPaymentDTO[];
+};
