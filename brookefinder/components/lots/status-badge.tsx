@@ -4,7 +4,6 @@ import type { LotStatus } from "@/lib/types";
 
 export const STATUS_ORDER: LotStatus[] = ["AVAILABLE", "RESERVED", "SOLD", "HOLD", "CLOSED"];
 
-// Full class strings so Tailwind can see them.
 export const STATUS_META: Record<
   LotStatus,
   { label: string; badge: string; shape: string; dot: string }

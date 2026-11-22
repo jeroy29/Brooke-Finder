@@ -1,3 +1,5 @@
+import fs from "node:fs/promises";
+import path from "node:path";
 import { Suspense } from "react";
 import { requireUser } from "@/lib/auth";
 import { getLots, getPublicLots } from "@/lib/lot-queries";
@@ -12,6 +14,10 @@ async function MapContent() {
   const isAdmin = user.role === "ADMIN";
   // Admins get the full data (homeowners, prices, payments). Everyone else gets the safe version.
   const lots: PublicLotDTO[] = isAdmin ? await getLots() : await getPublicLots();
+  const svg = await fs.readFile(
+    path.join(process.cwd(), "public", "map.svg"),
+    "utf8",
+  );
 
   return (
     <div className="space-y-6">
@@ -21,7 +27,7 @@ async function MapContent() {
           No lots yet. Add blocks and lots in the database and they will appear here.
         </div>
       ) : (
-        <LotMap lots={lots} canViewDetails={isAdmin} />
+        <LotMap lots={lots} svg={svg} canViewDetails={isAdmin} />
       )}
     </div>
   );

@@ -1,9 +1,12 @@
 "use client";
 
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
+import { Home } from "lucide-react";
 import SiteHeader from "./SiteHeader";
 import { AppSidebar, NAV_ITEMS } from "./AppSidebar";
+import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 
@@ -26,6 +29,11 @@ const Appshell = ({ children }: { children: React.ReactNode }) => {
             <SidebarTrigger className="-ml-1" />
             <Separator orientation="vertical" className="mx-1 h-5" />
             <span className="text-sm text-muted-foreground">{current.label}</span>
+            <Button asChild variant="ghost" size="icon" className="ml-auto size-8 rounded-lg text-muted-foreground">
+              <Link href="/" aria-label="Go to landing page" title="Landing page">
+                <Home className="size-4" />
+              </Link>
+            </Button>
           </header>
           <div className="flex-1">{children}</div>
         </SidebarInset>

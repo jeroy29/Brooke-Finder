@@ -24,7 +24,6 @@ export function HeroCta() {
       </Show>
 
       <Show when="signed-in">
-        {/* /home sends admins on to the dashboard, so one link works for everyone */}
         <Button asChild size="lg" className="h-11 gap-3 rounded-xl px-5 shadow-md shadow-primary/25">
           <Link href="/home">
             Open the app

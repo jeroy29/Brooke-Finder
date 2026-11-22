@@ -26,12 +26,10 @@ import {
 } from "@/components/ui/sidebar";
 import { useRole } from "@/hooks/use-admin";
 
-// access: "admin" = admins only, "user" = regular users only, "all" = any signed-in user.
-// Pages also enforce this on the server, so this only decides which links are shown.
 export const NAV_ITEMS = [
   { href: "/home", label: "Home", icon: Home, access: "user" },
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard, access: "admin" },
-  { href: "/map", label: "Lot map", icon: MapIcon, access: "all" },
+  { href: "/map", label: "Lot Map", icon: MapIcon, access: "all" },
   { href: "/lots", label: "All lots", icon: Table2, access: "admin" },
   { href: "/calculator", label: "Calculator", icon: Calculator, access: "admin" },
 ] as const;
@@ -44,8 +42,7 @@ export function AppSidebar() {
   const { user, isLoaded } = useUser();
   const { signOut } = useClerk();
   const role = useRole();
-
-  // Until the role is known, only show links everyone can use.
+  
   const items = NAV_ITEMS.filter(
     (n) =>
       n.access === "all" ||
