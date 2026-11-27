@@ -12,7 +12,6 @@ export type ContractDTO = {
   homeownerName: string;
   phone: string | null;
   email: string | null;
-  homeAddress: string | null;
   termMonths: number;
   reservationFee: number;
   origTcp: number;
@@ -35,15 +34,13 @@ export type LotDTO = {
   pricePerSqm: number;
   fullPrice: number; // sqm x price per sqm, before interest
   status: LotStatus;
-  streetName: string | null;
-  mapShape: MapShape | null;
   contract: ContractDTO | null;
 };
 
 /** Nakikita ng regular users sa map: no prices, homeowners, contracts or payments. */
 export type PublicLotDTO = Pick<
   LotDTO,
-  "id" | "blockNo" | "lotNo" | "lotType" | "sqm" | "status" | "streetName" | "mapShape"
+  "id" | "blockNo" | "lotNo" | "lotType" | "sqm" | "status" 
 >;
 
 export type PaymentTermDTO = { termMonths: number; interestRate: number };

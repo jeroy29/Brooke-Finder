@@ -5,14 +5,8 @@ import { useUser } from "@clerk/nextjs";
 
 export type Role = "ADMIN" | "USER";
 
-// Remember the answer for the whole browser session so navigating doesn't refetch.
 let cache: { id: string; role: Role } | null = null;
 
-/**
- * The signed-in user's role, or null while it is still loading (or signed out).
- * This is for showing and hiding links only. The real protection is server-side
- * (lib/auth.ts), so a wrong answer here can never expose data.
- */
 export function useRole(): Role | null {
   const { user, isLoaded } = useUser();
   const [state, setState] = useState(cache);

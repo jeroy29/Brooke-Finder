@@ -15,16 +15,12 @@ import { cn } from "@/lib/utils";
 import { useRole } from "@/hooks/use-admin";
 
 
-// access: "public" = everyone, "all" = any signed-in user,
-// "admin" = admins only, "user" = regular users only.
-// Pages also enforce this on the server, so this only decides which links are shown.
 const navLinks = [
   { href: "/home", label: "Home", access: "user" },
   { href: "/dashboard", label: "Dashboard", access: "admin" },
   { href: "/map", label: "Lot map", access: "all" },
   { href: "/lots", label: "All lots", access: "admin" },
   { href: "/calculator", label: "Calculator", access: "admin" },
-  { href: "/about", label: "About Us", access: "public" },
 ] as const;
 
 const SiteHeader = () => {
@@ -35,11 +31,10 @@ const SiteHeader = () => {
     const isLandingPage = true;
     const links = navLinks.filter(
         (l) =>
-            l.access === "public" ||
-            (isSignedIn &&
+            isSignedIn &&
                 (l.access === "all" ||
                     (l.access === "admin" && role === "ADMIN") ||
-                    (l.access === "user" && role === "USER"))),
+                    (l.access === "user" && role === "USER")),
     );
     return (
         <header className="fixed inset-x-3 top-3 z-20 mx-auto flex h-14 max-w-[120rem] items-center justify-between
@@ -49,7 +44,7 @@ const SiteHeader = () => {
             href = {isSignedIn && !isLandingPage ? "/dashboard" : "/"}
             className="flex items-center">
             <Image
-                src="/logo_village.svg"
+                src="/logo.jpg"
                 alt="Hidden Brooke Logo"
                 width={314}
                 height={160}

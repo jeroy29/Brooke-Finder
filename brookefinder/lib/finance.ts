@@ -1,20 +1,31 @@
+
 export const DP_RATE = 0.3;
 export const DP_MONTHS = 12;
-export const MONTHLY_RATE = 0.0175; // default; the real value comes from PaymentTerm.interestRate
-export const PAYMENT_STEP = 5; // monthly payments are rounded to the nearest PHP 5
+export const ANNUAL_INTEREST_RATE = 0.21; // Fixed 21% annual interest
+export const MONTHLY_RATE = ANNUAL_INTEREST_RATE / 12; // 1.75% monthly
+export const PAYMENT_STEP = 5; // Round monthly payments to nearest PHP 5
 
-const round2 = (n: number) => Math.round((n + Number.EPSILON) * 100) / 100;
+const round2 = (n: number) =>
+  Math.round((n + Number.EPSILON) * 100) / 100;
 
-function loanPayment(principal: number, monthlyRate: number, months: number): number {
+function loanPayment(
+  principal: number,
+  monthlyRate: number,
+  months: number
+): number {
   if (principal <= 0) return 0;
   if (monthlyRate === 0) return principal / months;
-  return (principal * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -months));
+
+  return (
+    (principal * monthlyRate) /
+    (1 - Math.pow(1 + monthlyRate, -months))
+  );
 }
 
 export type InstallmentInput = {
-  tcp: number; // lot price before interest
+  tcp: number;
   termMonths: number;
-  interestRate: number; // MONTHLY rate, e.g. 0.0175
+  interestRate: number; // Retained for compatibility; fixed 21% is applied
   reservationFee: number;
 };
 
@@ -32,26 +43,73 @@ export type InstallmentResult = {
   totalTcp: number;
 };
 
-export function computeInstallment(i: InstallmentInput): InstallmentResult {
+// ==========================================
+// INSTALLMENT COMPUTATION
+// ==========================================
+
+export function computeInstallment(
+  i: InstallmentInput
+): InstallmentResult {
   if (!Number.isInteger(i.termMonths) || i.termMonths <= 0) {
     throw new Error("termMonths must be a positive whole number");
   }
-  const dpAmount = round2(i.tcp * DP_RATE);
+
+  if (i.tcp < 0 || i.reservationFee < 0) {
+    throw new Error("TCP and reservation fee cannot be negative");
+  }
+
+  if (i.reservationFee > i.tcp) {
+    throw new Error("Reservation fee cannot exceed TCP");
+  }
+
+  // 1. Deduct reservation fee from original TCP
+  const adjustedTcp = round2(i.tcp - i.reservationFee);
+
+  // 2. Calculate 30% downpayment from adjusted TCP
+  const dpAmount = round2(adjustedTcp * DP_RATE);
+
+  // 3. Divide downpayment into 12 monthly payments
   const dpMonthly = round2(dpAmount / DP_MONTHS);
-  // Capital balance: reservation is deducted from the balance, not from the down payment.
-  const balanceAmount = Math.max(round2(i.tcp - dpAmount - i.reservationFee), 0);
+
+  // 4. Calculate remaining 70% balance
+  const balanceAmount = round2(adjustedTcp - dpAmount);
+
+  // 5. Apply fixed 21% annual interest (1.75% monthly)
+  const interestRate = MONTHLY_RATE;
+
   const monthlyAmort =
-    Math.round(loanPayment(balanceAmount, i.interestRate, i.termMonths) / PAYMENT_STEP) * PAYMENT_STEP;
-  const balanceWithInterest = round2(monthlyAmort * i.termMonths);
-  const interestAmount = round2(balanceWithInterest - balanceAmount);
-  const totalTcp = round2(dpAmount + i.reservationFee + balanceWithInterest);
+    Math.round(
+      loanPayment(
+        balanceAmount,
+        interestRate,
+        i.termMonths
+      ) / PAYMENT_STEP
+    ) * PAYMENT_STEP;
+
+  // 6. Calculate total amortization with interest
+  const balanceWithInterest = round2(
+    monthlyAmort * i.termMonths
+  );
+
+  // 7. Calculate total interest
+  const interestAmount = round2(
+    balanceWithInterest - balanceAmount
+  );
+
+  // 8. Calculate total payment including reservation fee
+  const totalTcp = round2(
+    i.reservationFee +
+    dpAmount +
+    balanceWithInterest
+  );
+
   return {
     tcp: i.tcp,
     dpAmount,
     reservationFee: i.reservationFee,
     dpMonthly,
     balanceAmount,
-    interestRate: i.interestRate,
+    interestRate,
     interestAmount,
     balanceWithInterest,
     termMonths: i.termMonths,
@@ -60,6 +118,10 @@ export function computeInstallment(i: InstallmentInput): InstallmentResult {
   };
 }
 
+// ==========================================
+// PAYMENT SCHEDULE
+// ==========================================
+
 export type ScheduleRow = {
   n: number;
   phase: "Down payment" | "Amortization";
@@ -67,33 +129,97 @@ export type ScheduleRow = {
   remaining: number;
 };
 
-export function buildSchedule(r: InstallmentResult): ScheduleRow[] {
+export function buildSchedule(
+  r: InstallmentResult
+): ScheduleRow[] {
   const rows: ScheduleRow[] = [];
-  let remaining = round2(r.totalTcp - r.reservationFee);
+
+  // Reservation fee has already been paid upfront.
+  // Remaining amount includes downpayment and amortization.
+  let remaining = round2(
+    r.dpAmount + r.balanceWithInterest
+  );
+
   let n = 1;
+
+  // Down payment schedule (12 months)
   if (r.dpMonthly > 0) {
     for (let i = 0; i < DP_MONTHS; i++, n++) {
-      remaining = Math.max(round2(remaining - r.dpMonthly), 0);
-      rows.push({ n, phase: "Down payment", amount: r.dpMonthly, remaining });
+      const amount =
+        i === DP_MONTHS - 1
+          ? round2(r.dpAmount - r.dpMonthly * (DP_MONTHS - 1))
+          : r.dpMonthly;
+
+      remaining = Math.max(
+        round2(remaining - amount),
+        0
+      );
+
+      rows.push({
+        n,
+        phase: "Down payment",
+        amount,
+        remaining,
+      });
     }
   }
+
+  // Monthly amortization schedule
   for (let i = 0; i < r.termMonths; i++, n++) {
-    remaining = Math.max(round2(remaining - r.monthlyAmort), 0);
-    rows.push({ n, phase: "Amortization", amount: r.monthlyAmort, remaining });
+    const amount =
+      i === r.termMonths - 1
+        ? round2(
+            r.balanceWithInterest -
+            r.monthlyAmort * (r.termMonths - 1)
+          )
+        : r.monthlyAmort;
+
+    remaining = Math.max(
+      round2(remaining - amount),
+      0
+    );
+
+    rows.push({
+      n,
+      phase: "Amortization",
+      amount,
+      remaining,
+    });
   }
+
   return rows;
 }
 
-// Adds whole months without skipping a month (Jan 31 + 1 month = Feb 28, not Mar 3).
-export function addMonths(date: Date, months: number): Date {
+// ==========================================
+// DATE UTILITIES
+// ==========================================
+
+// Adds whole months without skipping a month.
+// Example: January 31 + 1 month = February 28.
+export function addMonths(
+  date: Date,
+  months: number
+): Date {
   const d = new Date(date);
   const day = d.getDate();
+
   d.setDate(1);
   d.setMonth(d.getMonth() + months);
-  const lastDay = new Date(d.getFullYear(), d.getMonth() + 1, 0).getDate();
+
+  const lastDay = new Date(
+    d.getFullYear(),
+    d.getMonth() + 1,
+    0
+  ).getDate();
+
   d.setDate(Math.min(day, lastDay));
+
   return d;
 }
+
+// ==========================================
+// CURRENCY FORMATTERS
+// ==========================================
 
 export function formatPeso(n: number): string {
   return new Intl.NumberFormat("en-PH", {
@@ -104,7 +230,10 @@ export function formatPeso(n: number): string {
 }
 
 export function formatMonthYear(iso: string): string {
-  return new Date(iso).toLocaleDateString("en-PH", { month: "long", year: "numeric" });
+  return new Date(iso).toLocaleDateString("en-PH", {
+    month: "long",
+    year: "numeric",
+  });
 }
 
 export function formatPesoCompact(n: number): string {

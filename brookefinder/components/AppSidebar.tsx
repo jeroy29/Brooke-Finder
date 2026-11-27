@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { UserButton, useClerk, useUser } from "@clerk/nextjs";
 import {
   Calculator,
+  ClipboardList,
   Home,
   LayoutDashboard,
   LogOut,
@@ -32,6 +33,7 @@ export const NAV_ITEMS = [
   { href: "/map", label: "Lot Map", icon: MapIcon, access: "all" },
   { href: "/lots", label: "All lots", icon: Table2, access: "admin" },
   { href: "/calculator", label: "Calculator", icon: Calculator, access: "admin" },
+  { href: "/lot-manager", label: "Lot Manager", icon: ClipboardList, access: "admin" },
 ] as const;
 
 const activeStyle =

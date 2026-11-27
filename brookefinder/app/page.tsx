@@ -1,70 +1,56 @@
-import { BadgeCheck, Hourglass, Lock, MapPin, Pause, type LucideIcon } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { HeroCta } from "@/components/landing/hero-cta";
+import { LandingExtension } from "@/components/landing/landing-extension";
 
-// Floating plates: one per lot status, same colors as the map.
-const tiles: {
-  label: string;
-  icon: LucideIcon;
-  color: string;
-  pos: string;
-  outer?: boolean;
-}[] = [
-  { label: "Sold", icon: BadgeCheck, color: "bg-violet-500", pos: "left-[-3%] top-[8%]", outer: true },
-  { label: "Available", icon: MapPin, color: "bg-emerald-400", pos: "left-[16%] top-[32%]" },
-  { label: "Reserved", icon: Hourglass, color: "bg-amber-400", pos: "left-1/2 top-[50%] -translate-x-1/2" },
-  { label: "On hold", icon: Pause, color: "bg-slate-400", pos: "right-[16%] top-[32%]" },
-  { label: "Closed", icon: Lock, color: "bg-rose-400", pos: "right-[-3%] top-[8%]", outer: true },
+const statuses = [
+  { label: "Available", dot: "bg-emerald-400" },
+  { label: "Reserved", dot: "bg-amber-400" },
+  { label: "Sold", dot: "bg-violet-400" },
+  { label: "On hold", dot: "bg-slate-300" },
+  { label: "Closed", dot: "bg-rose-400" },
 ];
-
-function Tile({ label, icon: Icon, color, pos, outer }: (typeof tiles)[number]) {
-  return (
-    <div
-      className={cn(
-        "absolute aspect-square w-[clamp(7rem,17vw,16rem)]",
-        pos,
-        outer && "hidden md:block",
-      )}
-    >
-      {/* thickness */}
-      <div className="absolute inset-0 translate-y-2 rounded-[2rem] bg-violet-100 [transform:perspective(900px)_rotateX(58deg)_rotateZ(45deg)]" />
-      {/* top face */}
-      <div className="absolute inset-0 rounded-[2rem] bg-white shadow-[0_30px_60px_-24px_rgba(76,29,149,0.35)] ring-1 ring-black/5 [transform:perspective(900px)_rotateX(58deg)_rotateZ(45deg)]" />
-      <div className="absolute inset-0 flex flex-col items-center justify-center gap-2">
-        <span className={cn("flex size-12 items-center justify-center rounded-2xl text-white shadow-lg sm:size-14", color)}>
-          <Icon className="size-6 sm:size-7" />
-        </span>
-        <span className="rounded-full bg-white px-2.5 py-0.5 text-xs font-medium shadow-sm ring-1 ring-black/5">
-          {label}
-        </span>
-      </div>
-    </div>
-  );
-}
 
 export default function Home() {
   return (
     <main className="w-full px-3 pb-3 sm:px-5 sm:pb-5">
-      <section className="relative flex min-h-[calc(100svh-6rem)] flex-col items-center overflow-hidden rounded-[2rem] border bg-gradient-to-b from-violet-50 via-white to-violet-50/70 px-4 pt-14 sm:pt-20">
-        <h1 className="max-w-4xl text-center font-[family-name:var(--font-display)] text-5xl leading-[1.08] font-semibold tracking-tight sm:text-6xl lg:text-7xl">
-          Every lot. Every owner.
-          <br />
-          <span className="rounded-xl bg-violet-300/70 px-3 [box-decoration-break:clone]">One map.</span>
-        </h1>
+      <section
+        className="relative flex min-h-[calc(100svh-6rem)] flex-col justify-end overflow-hidden rounded-[2rem] border bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: "url('/landing.png')" }}
+      >
+        {/* Gradient overlay: dark at the bottom/left for text, clear up top */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-transparent" />
 
-        <p className="mt-6 max-w-xl text-center text-base text-muted-foreground sm:text-lg">
-          See which lots are open, who owns the rest, and what each homeowner still owes, all in one
-          place for Hidden Brooke Executive Village.
-        </p>
+        <div className="relative z-10 flex flex-col items-start gap-6 px-6 pb-10 sm:px-12 sm:pb-14 lg:px-16">
+          <span className="rounded-full border border-white/25 bg-white/10 px-3 py-1 text-xs font-medium tracking-wide text-white/90 backdrop-blur-md">
+            Hidden Brooke Executive Village
+          </span>
 
-        <div className="mt-8">
-          <HeroCta />
-        </div>
+          <h1 className="max-w-3xl font-[family-name:var(--font-display)] text-5xl leading-[1.05] font-semibold tracking-tight text-white sm:text-6xl lg:text-7xl">
+            Every lot. Every owner.
+            <br />
+            <span className="bg-gradient-to-r from-violet-200 to-fuchsia-200 bg-clip-text text-transparent">
+              One map.
+            </span>
+          </h1>
 
-        <div aria-hidden className="relative mt-6 w-full flex-1 min-h-[17rem] sm:min-h-[22rem]">
-          {tiles.map((t) => (
-            <Tile key={t.label} {...t} />
-          ))}
+          <p className="max-w-xl text-base text-white/85 sm:text-lg">
+            See which lots are open, who owns the rest, and what each homeowner
+            still owes, all in one place.
+          </p>
+
+          <LandingExtension />
+
+          {/* Status legend
+          <ul className="mt-2 flex flex-wrap gap-2">
+            {statuses.map((s) => (
+              <li
+                key={s.label}
+                className="flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-xs text-white backdrop-blur-md"
+              >
+                <span className={`size-2 rounded-full ${s.dot}`} />
+                {s.label}
+              </li>
+            ))}
+          </ul> */}
         </div>
       </section>
     </main>

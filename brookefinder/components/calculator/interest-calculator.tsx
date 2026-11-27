@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useMemo, useState } from "react";
@@ -18,7 +19,15 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { DP_MONTHS, DP_RATE, buildSchedule, computeInstallment, formatPeso } from "@/lib/finance";
+import {
+  DP_MONTHS,
+  DP_RATE,
+  MONTHLY_RATE,
+  ANNUAL_INTEREST_RATE,
+  buildSchedule,
+  computeInstallment,
+  formatPeso,
+} from "@/lib/finance";
 import type { LotDTO, PaymentTermDTO } from "@/lib/types";
 
 type LotOption = Pick<LotDTO, "id" | "blockNo" | "lotNo" | "lotType" | "sqm" | "fullPrice" | "status">;
@@ -48,12 +57,15 @@ export function InterestCalculator({
 
   const result = useMemo(() => {
     const tcp = parseFloat(price);
-    if (!term || !(tcp > 0)) return null;
+    const reservationFee = Math.max(parseFloat(reservation) || 0, 0);
+
+    if (!term || !(tcp > 0) || reservationFee > tcp) return null;
+
     return computeInstallment({
       tcp,
       termMonths: term.termMonths,
-      interestRate: term.interestRate,
-      reservationFee: Math.max(parseFloat(reservation) || 0, 0),
+      interestRate: MONTHLY_RATE,
+      reservationFee,
     });
   }, [price, term, reservation]);
 
@@ -119,7 +131,7 @@ export function InterestCalculator({
             <SelectContent>
               {terms.map((t) => (
                 <SelectItem key={t.termMonths} value={String(t.termMonths)}>
-                  {t.termMonths} months · {(t.interestRate * 100).toFixed(2)}% per month
+                  {t.termMonths} months · {(ANNUAL_INTEREST_RATE * 100).toFixed(2)}% annual interest
                 </SelectItem>
               ))}
             </SelectContent>
@@ -158,12 +170,13 @@ export function InterestCalculator({
 
             <dl className="divide-y rounded-xl border border-violet-200 bg-white px-5">
               <Line label="Lot price before interest" value={formatPeso(result.tcp)} />
-              <Line label={`Down payment (${DP_RATE * 100}%, payable in ${DP_MONTHS} months)`} value={formatPeso(result.dpAmount)} />
-              <Line label="Reservation fee (deducted from balance)" value={formatPeso(result.reservationFee)} />
+              <Line label="Reservation fee (deducted before down payment)" value={formatPeso(result.reservationFee)} />
+              <Line label="Adjusted TCP (price - reservation fee)" value={formatPeso(result.tcp - result.reservationFee)} />
+              <Line label={`Down payment (${DP_RATE * 100}% of adjusted TCP, payable in ${DP_MONTHS} months)`} value={formatPeso(result.dpAmount)} />
               <Line label={`Monthly down payment (${DP_MONTHS} months, no interest)`} value={formatPeso(result.dpMonthly)} />
-              <Line label="Capital balance (price - down payment - reservation)" value={formatPeso(result.balanceAmount)} />
+              <Line label="Capital balance (70% of adjusted TCP)" value={formatPeso(result.balanceAmount)} />
               <Line
-                label={`Interest (${(result.interestRate * 100).toFixed(2)}% a month on what is still owed)`}
+                label={`Interest (${(result.interestRate * 100).toFixed(2)}% monthly / ${(ANNUAL_INTEREST_RATE * 100).toFixed(0)}% annually)`}
                 value={formatPeso(result.interestAmount)}
               />
               <Line label="Balance with interest" value={formatPeso(result.balanceWithInterest)} />

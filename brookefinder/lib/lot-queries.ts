@@ -54,14 +54,11 @@ export async function getLots(): Promise<LotDTO[]> {
       pricePerSqm,
       fullPrice: Math.round(sqm * pricePerSqm * 100) / 100,
       status: l.status as LotStatus,
-      streetName: l.streetName,
-      mapShape: parseShape(l.mapShape),
       contract: c
         ? {
             homeownerName: c.homeowner.fullName,
             phone: c.homeowner.phone,
             email: c.homeowner.email,
-            homeAddress: c.homeowner.homeAddress,
             termMonths: c.termMonths,
             reservationFee: c.reservationFee.toNumber(),
             origTcp: c.origTcp.toNumber(),
@@ -89,8 +86,6 @@ export async function getPublicLots(): Promise<PublicLotDTO[]> {
       lotNo: true,
       sqm: true,
       status: true,
-      streetName: true,
-      mapShape: true,
       block: { select: { blockNo: true } },
       lotType: { select: { name: true } },
     },
@@ -104,8 +99,6 @@ export async function getPublicLots(): Promise<PublicLotDTO[]> {
     lotType: l.lotType.name,
     sqm: l.sqm.toNumber(),
     status: l.status as LotStatus,
-    streetName: l.streetName,
-    mapShape: parseShape(l.mapShape),
   }));
 }
 
@@ -170,4 +163,35 @@ export async function getPaymentSummary(): Promise<PaymentSummaryDTO> {
       lotNo: p.contract.lot.lotNo,
     })),
   };
+}
+
+
+export async function getStatusLots() {
+  await requireAdmin();
+
+  const lots = await prisma.lot.findMany({
+    select: {
+      id: true,
+      block: {
+        select: {
+          blockNo: true,
+        },
+      },
+      lotNo: true,
+      sqm: true,
+      status: true,
+    },
+    orderBy: [
+      { block: { blockNo: "asc" } },
+      { lotNo: "asc" },
+    ],
+  });
+
+  return lots.map((l) => ({
+    id: String(l.id),
+    blockNo: l.block.blockNo,
+    lotNo: l.lotNo,
+    sqm: Number(l.sqm),
+    status: l.status,
+  }));
 }

@@ -3955,7 +3955,6 @@ export namespace Prisma {
     lotTypeId: number | null
     sqm: Decimal | null
     status: $Enums.LotStatus | null
-    streetName: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -3967,7 +3966,6 @@ export namespace Prisma {
     lotTypeId: number | null
     sqm: Decimal | null
     status: $Enums.LotStatus | null
-    streetName: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -3979,8 +3977,6 @@ export namespace Prisma {
     lotTypeId: number
     sqm: number
     status: number
-    streetName: number
-    mapShape: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -4008,7 +4004,6 @@ export namespace Prisma {
     lotTypeId?: true
     sqm?: true
     status?: true
-    streetName?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -4020,7 +4015,6 @@ export namespace Prisma {
     lotTypeId?: true
     sqm?: true
     status?: true
-    streetName?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -4032,8 +4026,6 @@ export namespace Prisma {
     lotTypeId?: true
     sqm?: true
     status?: true
-    streetName?: true
-    mapShape?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -4132,8 +4124,6 @@ export namespace Prisma {
     lotTypeId: number
     sqm: Decimal
     status: $Enums.LotStatus
-    streetName: string | null
-    mapShape: JsonValue | null
     createdAt: Date
     updatedAt: Date
     _count: LotCountAggregateOutputType | null
@@ -4164,8 +4154,6 @@ export namespace Prisma {
     lotTypeId?: boolean
     sqm?: boolean
     status?: boolean
-    streetName?: boolean
-    mapShape?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     block?: boolean | BlockDefaultArgs<ExtArgs>
@@ -4180,8 +4168,6 @@ export namespace Prisma {
     lotTypeId?: boolean
     sqm?: boolean
     status?: boolean
-    streetName?: boolean
-    mapShape?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     block?: boolean | BlockDefaultArgs<ExtArgs>
@@ -4195,8 +4181,6 @@ export namespace Prisma {
     lotTypeId?: boolean
     sqm?: boolean
     status?: boolean
-    streetName?: boolean
-    mapShape?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     block?: boolean | BlockDefaultArgs<ExtArgs>
@@ -4210,13 +4194,11 @@ export namespace Prisma {
     lotTypeId?: boolean
     sqm?: boolean
     status?: boolean
-    streetName?: boolean
-    mapShape?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type LotOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "blockId" | "lotNo" | "lotTypeId" | "sqm" | "status" | "streetName" | "mapShape" | "createdAt" | "updatedAt", ExtArgs["result"]["lot"]>
+  export type LotOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "blockId" | "lotNo" | "lotTypeId" | "sqm" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["lot"]>
   export type LotInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     block?: boolean | BlockDefaultArgs<ExtArgs>
     lotType?: boolean | LotTypeDefaultArgs<ExtArgs>
@@ -4245,8 +4227,6 @@ export namespace Prisma {
       lotTypeId: number
       sqm: Prisma.Decimal
       status: $Enums.LotStatus
-      streetName: string | null
-      mapShape: Prisma.JsonValue | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["lot"]>
@@ -4681,8 +4661,6 @@ export namespace Prisma {
     readonly lotTypeId: FieldRef<"Lot", 'Int'>
     readonly sqm: FieldRef<"Lot", 'Decimal'>
     readonly status: FieldRef<"Lot", 'LotStatus'>
-    readonly streetName: FieldRef<"Lot", 'String'>
-    readonly mapShape: FieldRef<"Lot", 'Json'>
     readonly createdAt: FieldRef<"Lot", 'DateTime'>
     readonly updatedAt: FieldRef<"Lot", 'DateTime'>
   }
@@ -5138,7 +5116,6 @@ export namespace Prisma {
     fullName: string | null
     phone: string | null
     email: string | null
-    homeAddress: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -5148,7 +5125,6 @@ export namespace Prisma {
     fullName: string | null
     phone: string | null
     email: string | null
-    homeAddress: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -5158,7 +5134,6 @@ export namespace Prisma {
     fullName: number
     phone: number
     email: number
-    homeAddress: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -5170,7 +5145,6 @@ export namespace Prisma {
     fullName?: true
     phone?: true
     email?: true
-    homeAddress?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -5180,7 +5154,6 @@ export namespace Prisma {
     fullName?: true
     phone?: true
     email?: true
-    homeAddress?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -5190,7 +5163,6 @@ export namespace Prisma {
     fullName?: true
     phone?: true
     email?: true
-    homeAddress?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -5273,7 +5245,6 @@ export namespace Prisma {
     fullName: string
     phone: string | null
     email: string | null
-    homeAddress: string | null
     createdAt: Date
     updatedAt: Date
     _count: HomeownerCountAggregateOutputType | null
@@ -5300,7 +5271,6 @@ export namespace Prisma {
     fullName?: boolean
     phone?: boolean
     email?: boolean
-    homeAddress?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     contracts?: boolean | Homeowner$contractsArgs<ExtArgs>
@@ -5312,7 +5282,6 @@ export namespace Prisma {
     fullName?: boolean
     phone?: boolean
     email?: boolean
-    homeAddress?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["homeowner"]>
@@ -5322,7 +5291,6 @@ export namespace Prisma {
     fullName?: boolean
     phone?: boolean
     email?: boolean
-    homeAddress?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["homeowner"]>
@@ -5332,12 +5300,11 @@ export namespace Prisma {
     fullName?: boolean
     phone?: boolean
     email?: boolean
-    homeAddress?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type HomeownerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "fullName" | "phone" | "email" | "homeAddress" | "createdAt" | "updatedAt", ExtArgs["result"]["homeowner"]>
+  export type HomeownerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "fullName" | "phone" | "email" | "createdAt" | "updatedAt", ExtArgs["result"]["homeowner"]>
   export type HomeownerInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     contracts?: boolean | Homeowner$contractsArgs<ExtArgs>
     _count?: boolean | HomeownerCountOutputTypeDefaultArgs<ExtArgs>
@@ -5355,7 +5322,6 @@ export namespace Prisma {
       fullName: string
       phone: string | null
       email: string | null
-      homeAddress: string | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["homeowner"]>
@@ -5786,7 +5752,6 @@ export namespace Prisma {
     readonly fullName: FieldRef<"Homeowner", 'String'>
     readonly phone: FieldRef<"Homeowner", 'String'>
     readonly email: FieldRef<"Homeowner", 'String'>
-    readonly homeAddress: FieldRef<"Homeowner", 'String'>
     readonly createdAt: FieldRef<"Homeowner", 'DateTime'>
     readonly updatedAt: FieldRef<"Homeowner", 'DateTime'>
   }
@@ -8613,7 +8578,6 @@ export namespace Prisma {
     amount: Decimal | null
     paidOn: Date | null
     paymentType: $Enums.PaymentType | null
-    referenceNo: string | null
     createdAt: Date | null
   }
 
@@ -8624,7 +8588,6 @@ export namespace Prisma {
     amount: Decimal | null
     paidOn: Date | null
     paymentType: $Enums.PaymentType | null
-    referenceNo: string | null
     createdAt: Date | null
   }
 
@@ -8635,7 +8598,6 @@ export namespace Prisma {
     amount: number
     paidOn: number
     paymentType: number
-    referenceNo: number
     createdAt: number
     _all: number
   }
@@ -8656,7 +8618,6 @@ export namespace Prisma {
     amount?: true
     paidOn?: true
     paymentType?: true
-    referenceNo?: true
     createdAt?: true
   }
 
@@ -8667,7 +8628,6 @@ export namespace Prisma {
     amount?: true
     paidOn?: true
     paymentType?: true
-    referenceNo?: true
     createdAt?: true
   }
 
@@ -8678,7 +8638,6 @@ export namespace Prisma {
     amount?: true
     paidOn?: true
     paymentType?: true
-    referenceNo?: true
     createdAt?: true
     _all?: true
   }
@@ -8776,7 +8735,6 @@ export namespace Prisma {
     amount: Decimal
     paidOn: Date
     paymentType: $Enums.PaymentType
-    referenceNo: string | null
     createdAt: Date
     _count: PaymentCountAggregateOutputType | null
     _avg: PaymentAvgAggregateOutputType | null
@@ -8806,7 +8764,6 @@ export namespace Prisma {
     amount?: boolean
     paidOn?: boolean
     paymentType?: boolean
-    referenceNo?: boolean
     createdAt?: boolean
     contract?: boolean | ContractDefaultArgs<ExtArgs>
     recorder?: boolean | UserDefaultArgs<ExtArgs>
@@ -8819,7 +8776,6 @@ export namespace Prisma {
     amount?: boolean
     paidOn?: boolean
     paymentType?: boolean
-    referenceNo?: boolean
     createdAt?: boolean
     contract?: boolean | ContractDefaultArgs<ExtArgs>
     recorder?: boolean | UserDefaultArgs<ExtArgs>
@@ -8832,7 +8788,6 @@ export namespace Prisma {
     amount?: boolean
     paidOn?: boolean
     paymentType?: boolean
-    referenceNo?: boolean
     createdAt?: boolean
     contract?: boolean | ContractDefaultArgs<ExtArgs>
     recorder?: boolean | UserDefaultArgs<ExtArgs>
@@ -8845,11 +8800,10 @@ export namespace Prisma {
     amount?: boolean
     paidOn?: boolean
     paymentType?: boolean
-    referenceNo?: boolean
     createdAt?: boolean
   }
 
-  export type PaymentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "contractId" | "recordedBy" | "amount" | "paidOn" | "paymentType" | "referenceNo" | "createdAt", ExtArgs["result"]["payment"]>
+  export type PaymentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "contractId" | "recordedBy" | "amount" | "paidOn" | "paymentType" | "createdAt", ExtArgs["result"]["payment"]>
   export type PaymentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     contract?: boolean | ContractDefaultArgs<ExtArgs>
     recorder?: boolean | UserDefaultArgs<ExtArgs>
@@ -8876,7 +8830,6 @@ export namespace Prisma {
       amount: Prisma.Decimal
       paidOn: Date
       paymentType: $Enums.PaymentType
-      referenceNo: string | null
       createdAt: Date
     }, ExtArgs["result"]["payment"]>
     composites: {}
@@ -9309,7 +9262,6 @@ export namespace Prisma {
     readonly amount: FieldRef<"Payment", 'Decimal'>
     readonly paidOn: FieldRef<"Payment", 'DateTime'>
     readonly paymentType: FieldRef<"Payment", 'PaymentType'>
-    readonly referenceNo: FieldRef<"Payment", 'String'>
     readonly createdAt: FieldRef<"Payment", 'DateTime'>
   }
     
@@ -10882,8 +10834,6 @@ export namespace Prisma {
     lotTypeId: 'lotTypeId',
     sqm: 'sqm',
     status: 'status',
-    streetName: 'streetName',
-    mapShape: 'mapShape',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -10896,7 +10846,6 @@ export namespace Prisma {
     fullName: 'fullName',
     phone: 'phone',
     email: 'email',
-    homeAddress: 'homeAddress',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -10939,7 +10888,6 @@ export namespace Prisma {
     amount: 'amount',
     paidOn: 'paidOn',
     paymentType: 'paymentType',
-    referenceNo: 'referenceNo',
     createdAt: 'createdAt'
   };
 
@@ -10968,29 +10916,12 @@ export namespace Prisma {
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
-  export const NullableJsonNullValueInput: {
-    DbNull: typeof DbNull,
-    JsonNull: typeof JsonNull
-  };
-
-  export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
-
-
   export const QueryMode: {
     default: 'default',
     insensitive: 'insensitive'
   };
 
   export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
-
-
-  export const JsonNullValueFilter: {
-    DbNull: typeof DbNull,
-    JsonNull: typeof JsonNull,
-    AnyNull: typeof AnyNull
-  };
-
-  export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
 
   export const NullsOrder: {
@@ -11059,20 +10990,6 @@ export namespace Prisma {
    * Reference to a field of type 'LotStatus[]'
    */
   export type ListEnumLotStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LotStatus[]'>
-    
-
-
-  /**
-   * Reference to a field of type 'Json'
-   */
-  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
-    
-
-
-  /**
-   * Reference to a field of type 'QueryMode'
-   */
-  export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
     
 
 
@@ -11234,8 +11151,6 @@ export namespace Prisma {
     lotTypeId?: IntFilter<"Lot"> | number
     sqm?: DecimalFilter<"Lot"> | Decimal | DecimalJsLike | number | string
     status?: EnumLotStatusFilter<"Lot"> | $Enums.LotStatus
-    streetName?: StringNullableFilter<"Lot"> | string | null
-    mapShape?: JsonNullableFilter<"Lot">
     createdAt?: DateTimeFilter<"Lot"> | Date | string
     updatedAt?: DateTimeFilter<"Lot"> | Date | string
     block?: XOR<BlockScalarRelationFilter, BlockWhereInput>
@@ -11250,8 +11165,6 @@ export namespace Prisma {
     lotTypeId?: SortOrder
     sqm?: SortOrder
     status?: SortOrder
-    streetName?: SortOrderInput | SortOrder
-    mapShape?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     block?: BlockOrderByWithRelationInput
@@ -11270,8 +11183,6 @@ export namespace Prisma {
     lotTypeId?: IntFilter<"Lot"> | number
     sqm?: DecimalFilter<"Lot"> | Decimal | DecimalJsLike | number | string
     status?: EnumLotStatusFilter<"Lot"> | $Enums.LotStatus
-    streetName?: StringNullableFilter<"Lot"> | string | null
-    mapShape?: JsonNullableFilter<"Lot">
     createdAt?: DateTimeFilter<"Lot"> | Date | string
     updatedAt?: DateTimeFilter<"Lot"> | Date | string
     block?: XOR<BlockScalarRelationFilter, BlockWhereInput>
@@ -11286,8 +11197,6 @@ export namespace Prisma {
     lotTypeId?: SortOrder
     sqm?: SortOrder
     status?: SortOrder
-    streetName?: SortOrderInput | SortOrder
-    mapShape?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: LotCountOrderByAggregateInput
@@ -11307,8 +11216,6 @@ export namespace Prisma {
     lotTypeId?: IntWithAggregatesFilter<"Lot"> | number
     sqm?: DecimalWithAggregatesFilter<"Lot"> | Decimal | DecimalJsLike | number | string
     status?: EnumLotStatusWithAggregatesFilter<"Lot"> | $Enums.LotStatus
-    streetName?: StringNullableWithAggregatesFilter<"Lot"> | string | null
-    mapShape?: JsonNullableWithAggregatesFilter<"Lot">
     createdAt?: DateTimeWithAggregatesFilter<"Lot"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Lot"> | Date | string
   }
@@ -11321,7 +11228,6 @@ export namespace Prisma {
     fullName?: StringFilter<"Homeowner"> | string
     phone?: StringNullableFilter<"Homeowner"> | string | null
     email?: StringNullableFilter<"Homeowner"> | string | null
-    homeAddress?: StringNullableFilter<"Homeowner"> | string | null
     createdAt?: DateTimeFilter<"Homeowner"> | Date | string
     updatedAt?: DateTimeFilter<"Homeowner"> | Date | string
     contracts?: ContractListRelationFilter
@@ -11332,7 +11238,6 @@ export namespace Prisma {
     fullName?: SortOrder
     phone?: SortOrderInput | SortOrder
     email?: SortOrderInput | SortOrder
-    homeAddress?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     contracts?: ContractOrderByRelationAggregateInput
@@ -11346,7 +11251,6 @@ export namespace Prisma {
     fullName?: StringFilter<"Homeowner"> | string
     phone?: StringNullableFilter<"Homeowner"> | string | null
     email?: StringNullableFilter<"Homeowner"> | string | null
-    homeAddress?: StringNullableFilter<"Homeowner"> | string | null
     createdAt?: DateTimeFilter<"Homeowner"> | Date | string
     updatedAt?: DateTimeFilter<"Homeowner"> | Date | string
     contracts?: ContractListRelationFilter
@@ -11357,7 +11261,6 @@ export namespace Prisma {
     fullName?: SortOrder
     phone?: SortOrderInput | SortOrder
     email?: SortOrderInput | SortOrder
-    homeAddress?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: HomeownerCountOrderByAggregateInput
@@ -11373,7 +11276,6 @@ export namespace Prisma {
     fullName?: StringWithAggregatesFilter<"Homeowner"> | string
     phone?: StringNullableWithAggregatesFilter<"Homeowner"> | string | null
     email?: StringNullableWithAggregatesFilter<"Homeowner"> | string | null
-    homeAddress?: StringNullableWithAggregatesFilter<"Homeowner"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Homeowner"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Homeowner"> | Date | string
   }
@@ -11541,7 +11443,6 @@ export namespace Prisma {
     amount?: DecimalFilter<"Payment"> | Decimal | DecimalJsLike | number | string
     paidOn?: DateTimeFilter<"Payment"> | Date | string
     paymentType?: EnumPaymentTypeFilter<"Payment"> | $Enums.PaymentType
-    referenceNo?: StringNullableFilter<"Payment"> | string | null
     createdAt?: DateTimeFilter<"Payment"> | Date | string
     contract?: XOR<ContractScalarRelationFilter, ContractWhereInput>
     recorder?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -11554,7 +11455,6 @@ export namespace Prisma {
     amount?: SortOrder
     paidOn?: SortOrder
     paymentType?: SortOrder
-    referenceNo?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     contract?: ContractOrderByWithRelationInput
     recorder?: UserOrderByWithRelationInput
@@ -11570,7 +11470,6 @@ export namespace Prisma {
     amount?: DecimalFilter<"Payment"> | Decimal | DecimalJsLike | number | string
     paidOn?: DateTimeFilter<"Payment"> | Date | string
     paymentType?: EnumPaymentTypeFilter<"Payment"> | $Enums.PaymentType
-    referenceNo?: StringNullableFilter<"Payment"> | string | null
     createdAt?: DateTimeFilter<"Payment"> | Date | string
     contract?: XOR<ContractScalarRelationFilter, ContractWhereInput>
     recorder?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -11583,7 +11482,6 @@ export namespace Prisma {
     amount?: SortOrder
     paidOn?: SortOrder
     paymentType?: SortOrder
-    referenceNo?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     _count?: PaymentCountOrderByAggregateInput
     _avg?: PaymentAvgOrderByAggregateInput
@@ -11602,7 +11500,6 @@ export namespace Prisma {
     amount?: DecimalWithAggregatesFilter<"Payment"> | Decimal | DecimalJsLike | number | string
     paidOn?: DateTimeWithAggregatesFilter<"Payment"> | Date | string
     paymentType?: EnumPaymentTypeWithAggregatesFilter<"Payment"> | $Enums.PaymentType
-    referenceNo?: StringNullableWithAggregatesFilter<"Payment"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Payment"> | Date | string
   }
 
@@ -11760,8 +11657,6 @@ export namespace Prisma {
     lotNo: number
     sqm: Decimal | DecimalJsLike | number | string
     status?: $Enums.LotStatus
-    streetName?: string | null
-    mapShape?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     block: BlockCreateNestedOneWithoutLotsInput
@@ -11776,8 +11671,6 @@ export namespace Prisma {
     lotTypeId: number
     sqm: Decimal | DecimalJsLike | number | string
     status?: $Enums.LotStatus
-    streetName?: string | null
-    mapShape?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     contract?: ContractUncheckedCreateNestedOneWithoutLotInput
@@ -11788,8 +11681,6 @@ export namespace Prisma {
     lotNo?: IntFieldUpdateOperationsInput | number
     sqm?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumLotStatusFieldUpdateOperationsInput | $Enums.LotStatus
-    streetName?: NullableStringFieldUpdateOperationsInput | string | null
-    mapShape?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     block?: BlockUpdateOneRequiredWithoutLotsNestedInput
@@ -11804,8 +11695,6 @@ export namespace Prisma {
     lotTypeId?: IntFieldUpdateOperationsInput | number
     sqm?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumLotStatusFieldUpdateOperationsInput | $Enums.LotStatus
-    streetName?: NullableStringFieldUpdateOperationsInput | string | null
-    mapShape?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     contract?: ContractUncheckedUpdateOneWithoutLotNestedInput
@@ -11818,8 +11707,6 @@ export namespace Prisma {
     lotTypeId: number
     sqm: Decimal | DecimalJsLike | number | string
     status?: $Enums.LotStatus
-    streetName?: string | null
-    mapShape?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -11829,8 +11716,6 @@ export namespace Prisma {
     lotNo?: IntFieldUpdateOperationsInput | number
     sqm?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumLotStatusFieldUpdateOperationsInput | $Enums.LotStatus
-    streetName?: NullableStringFieldUpdateOperationsInput | string | null
-    mapShape?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -11842,8 +11727,6 @@ export namespace Prisma {
     lotTypeId?: IntFieldUpdateOperationsInput | number
     sqm?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumLotStatusFieldUpdateOperationsInput | $Enums.LotStatus
-    streetName?: NullableStringFieldUpdateOperationsInput | string | null
-    mapShape?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -11853,7 +11736,6 @@ export namespace Prisma {
     fullName: string
     phone?: string | null
     email?: string | null
-    homeAddress?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     contracts?: ContractCreateNestedManyWithoutHomeownerInput
@@ -11864,7 +11746,6 @@ export namespace Prisma {
     fullName: string
     phone?: string | null
     email?: string | null
-    homeAddress?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     contracts?: ContractUncheckedCreateNestedManyWithoutHomeownerInput
@@ -11875,7 +11756,6 @@ export namespace Prisma {
     fullName?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
-    homeAddress?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     contracts?: ContractUpdateManyWithoutHomeownerNestedInput
@@ -11886,7 +11766,6 @@ export namespace Prisma {
     fullName?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
-    homeAddress?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     contracts?: ContractUncheckedUpdateManyWithoutHomeownerNestedInput
@@ -11897,7 +11776,6 @@ export namespace Prisma {
     fullName: string
     phone?: string | null
     email?: string | null
-    homeAddress?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -11907,7 +11785,6 @@ export namespace Prisma {
     fullName?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
-    homeAddress?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -11917,7 +11794,6 @@ export namespace Prisma {
     fullName?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
-    homeAddress?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -12086,7 +11962,6 @@ export namespace Prisma {
     amount: Decimal | DecimalJsLike | number | string
     paidOn: Date | string
     paymentType: $Enums.PaymentType
-    referenceNo?: string | null
     createdAt?: Date | string
     contract: ContractCreateNestedOneWithoutPaymentsInput
     recorder: UserCreateNestedOneWithoutPaymentsInput
@@ -12099,7 +11974,6 @@ export namespace Prisma {
     amount: Decimal | DecimalJsLike | number | string
     paidOn: Date | string
     paymentType: $Enums.PaymentType
-    referenceNo?: string | null
     createdAt?: Date | string
   }
 
@@ -12108,7 +11982,6 @@ export namespace Prisma {
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     paidOn?: DateTimeFieldUpdateOperationsInput | Date | string
     paymentType?: EnumPaymentTypeFieldUpdateOperationsInput | $Enums.PaymentType
-    referenceNo?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     contract?: ContractUpdateOneRequiredWithoutPaymentsNestedInput
     recorder?: UserUpdateOneRequiredWithoutPaymentsNestedInput
@@ -12121,7 +11994,6 @@ export namespace Prisma {
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     paidOn?: DateTimeFieldUpdateOperationsInput | Date | string
     paymentType?: EnumPaymentTypeFieldUpdateOperationsInput | $Enums.PaymentType
-    referenceNo?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -12132,7 +12004,6 @@ export namespace Prisma {
     amount: Decimal | DecimalJsLike | number | string
     paidOn: Date | string
     paymentType: $Enums.PaymentType
-    referenceNo?: string | null
     createdAt?: Date | string
   }
 
@@ -12141,7 +12012,6 @@ export namespace Prisma {
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     paidOn?: DateTimeFieldUpdateOperationsInput | Date | string
     paymentType?: EnumPaymentTypeFieldUpdateOperationsInput | $Enums.PaymentType
-    referenceNo?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -12152,7 +12022,6 @@ export namespace Prisma {
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     paidOn?: DateTimeFieldUpdateOperationsInput | Date | string
     paymentType?: EnumPaymentTypeFieldUpdateOperationsInput | $Enums.PaymentType
-    referenceNo?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -12406,44 +12275,6 @@ export namespace Prisma {
     not?: NestedEnumLotStatusFilter<$PrismaModel> | $Enums.LotStatus
   }
 
-  export type StringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-  export type JsonNullableFilter<$PrismaModel = never> =
-    | PatchUndefined<
-        Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
-        Required<JsonNullableFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>
-
-  export type JsonNullableFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    path?: string[]
-    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
-    string_contains?: string | StringFieldRefInput<$PrismaModel>
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-  }
-
   export type DateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -12470,11 +12301,6 @@ export namespace Prisma {
     isNot?: ContractWhereInput | null
   }
 
-  export type SortOrderInput = {
-    sort: SortOrder
-    nulls?: NullsOrder
-  }
-
   export type LotBlockIdLotNoCompoundUniqueInput = {
     blockId: number
     lotNo: number
@@ -12487,8 +12313,6 @@ export namespace Prisma {
     lotTypeId?: SortOrder
     sqm?: SortOrder
     status?: SortOrder
-    streetName?: SortOrder
-    mapShape?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -12507,7 +12331,6 @@ export namespace Prisma {
     lotTypeId?: SortOrder
     sqm?: SortOrder
     status?: SortOrder
-    streetName?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -12519,7 +12342,6 @@ export namespace Prisma {
     lotTypeId?: SortOrder
     sqm?: SortOrder
     status?: SortOrder
-    streetName?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -12556,6 +12378,77 @@ export namespace Prisma {
     _max?: NestedEnumLotStatusFilter<$PrismaModel>
   }
 
+  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type ContractListRelationFilter = {
+    every?: ContractWhereInput
+    some?: ContractWhereInput
+    none?: ContractWhereInput
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
+  }
+
+  export type ContractOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type HomeownerCountOrderByAggregateInput = {
+    id?: SortOrder
+    fullName?: SortOrder
+    phone?: SortOrder
+    email?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type HomeownerMaxOrderByAggregateInput = {
+    id?: SortOrder
+    fullName?: SortOrder
+    phone?: SortOrder
+    email?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type HomeownerMinOrderByAggregateInput = {
+    id?: SortOrder
+    fullName?: SortOrder
+    phone?: SortOrder
+    email?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
   export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -12572,86 +12465,6 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
-  }
-  export type JsonNullableWithAggregatesFilter<$PrismaModel = never> =
-    | PatchUndefined<
-        Either<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
-        Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
-
-  export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    path?: string[]
-    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
-    string_contains?: string | StringFieldRefInput<$PrismaModel>
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedJsonNullableFilter<$PrismaModel>
-    _max?: NestedJsonNullableFilter<$PrismaModel>
-  }
-
-  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
-  }
-
-  export type ContractListRelationFilter = {
-    every?: ContractWhereInput
-    some?: ContractWhereInput
-    none?: ContractWhereInput
-  }
-
-  export type ContractOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type HomeownerCountOrderByAggregateInput = {
-    id?: SortOrder
-    fullName?: SortOrder
-    phone?: SortOrder
-    email?: SortOrder
-    homeAddress?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type HomeownerMaxOrderByAggregateInput = {
-    id?: SortOrder
-    fullName?: SortOrder
-    phone?: SortOrder
-    email?: SortOrder
-    homeAddress?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-  }
-
-  export type HomeownerMinOrderByAggregateInput = {
-    id?: SortOrder
-    fullName?: SortOrder
-    phone?: SortOrder
-    email?: SortOrder
-    homeAddress?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
   }
 
   export type PaymentTermCountOrderByAggregateInput = {
@@ -12801,7 +12614,6 @@ export namespace Prisma {
     amount?: SortOrder
     paidOn?: SortOrder
     paymentType?: SortOrder
-    referenceNo?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -12816,7 +12628,6 @@ export namespace Prisma {
     amount?: SortOrder
     paidOn?: SortOrder
     paymentType?: SortOrder
-    referenceNo?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -12827,7 +12638,6 @@ export namespace Prisma {
     amount?: SortOrder
     paidOn?: SortOrder
     paymentType?: SortOrder
-    referenceNo?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -13027,10 +12837,6 @@ export namespace Prisma {
     set?: $Enums.LotStatus
   }
 
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
-  }
-
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
   }
@@ -13083,6 +12889,10 @@ export namespace Prisma {
     connectOrCreate?: ContractCreateOrConnectWithoutHomeownerInput | ContractCreateOrConnectWithoutHomeownerInput[]
     createMany?: ContractCreateManyHomeownerInputEnvelope
     connect?: ContractWhereUniqueInput | ContractWhereUniqueInput[]
+  }
+
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
   }
 
   export type ContractUpdateManyWithoutHomeownerNestedInput = {
@@ -13431,20 +13241,6 @@ export namespace Prisma {
     not?: NestedEnumLotStatusFilter<$PrismaModel> | $Enums.LotStatus
   }
 
-  export type NestedStringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
   export type NestedDateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -13480,6 +13276,34 @@ export namespace Prisma {
     _max?: NestedEnumLotStatusFilter<$PrismaModel>
   }
 
+  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -13506,43 +13330,6 @@ export namespace Prisma {
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
-  }
-  export type NestedJsonNullableFilter<$PrismaModel = never> =
-    | PatchUndefined<
-        Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
-        Required<NestedJsonNullableFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>
-
-  export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    path?: string[]
-    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
-    string_contains?: string | StringFieldRefInput<$PrismaModel>
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-  }
-
-  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
   export type NestedEnumPaymentTypeFilter<$PrismaModel = never> = {
@@ -13584,8 +13371,6 @@ export namespace Prisma {
     lotNo: number
     sqm: Decimal | DecimalJsLike | number | string
     status?: $Enums.LotStatus
-    streetName?: string | null
-    mapShape?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     lotType: LotTypeCreateNestedOneWithoutLotsInput
@@ -13598,8 +13383,6 @@ export namespace Prisma {
     lotTypeId: number
     sqm: Decimal | DecimalJsLike | number | string
     status?: $Enums.LotStatus
-    streetName?: string | null
-    mapShape?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     contract?: ContractUncheckedCreateNestedOneWithoutLotInput
@@ -13641,8 +13424,6 @@ export namespace Prisma {
     lotTypeId?: IntFilter<"Lot"> | number
     sqm?: DecimalFilter<"Lot"> | Decimal | DecimalJsLike | number | string
     status?: EnumLotStatusFilter<"Lot"> | $Enums.LotStatus
-    streetName?: StringNullableFilter<"Lot"> | string | null
-    mapShape?: JsonNullableFilter<"Lot">
     createdAt?: DateTimeFilter<"Lot"> | Date | string
     updatedAt?: DateTimeFilter<"Lot"> | Date | string
   }
@@ -13652,8 +13433,6 @@ export namespace Prisma {
     lotNo: number
     sqm: Decimal | DecimalJsLike | number | string
     status?: $Enums.LotStatus
-    streetName?: string | null
-    mapShape?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     block: BlockCreateNestedOneWithoutLotsInput
@@ -13666,8 +13445,6 @@ export namespace Prisma {
     lotNo: number
     sqm: Decimal | DecimalJsLike | number | string
     status?: $Enums.LotStatus
-    streetName?: string | null
-    mapShape?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     contract?: ContractUncheckedCreateNestedOneWithoutLotInput
@@ -14000,8 +13777,6 @@ export namespace Prisma {
     lotNo: number
     sqm: Decimal | DecimalJsLike | number | string
     status?: $Enums.LotStatus
-    streetName?: string | null
-    mapShape?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
     block: BlockCreateNestedOneWithoutLotsInput
@@ -14015,8 +13790,6 @@ export namespace Prisma {
     lotTypeId: number
     sqm: Decimal | DecimalJsLike | number | string
     status?: $Enums.LotStatus
-    streetName?: string | null
-    mapShape?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -14031,7 +13804,6 @@ export namespace Prisma {
     fullName: string
     phone?: string | null
     email?: string | null
-    homeAddress?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -14041,7 +13813,6 @@ export namespace Prisma {
     fullName: string
     phone?: string | null
     email?: string | null
-    homeAddress?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -14071,7 +13842,6 @@ export namespace Prisma {
     amount: Decimal | DecimalJsLike | number | string
     paidOn: Date | string
     paymentType: $Enums.PaymentType
-    referenceNo?: string | null
     createdAt?: Date | string
     recorder: UserCreateNestedOneWithoutPaymentsInput
   }
@@ -14082,7 +13852,6 @@ export namespace Prisma {
     amount: Decimal | DecimalJsLike | number | string
     paidOn: Date | string
     paymentType: $Enums.PaymentType
-    referenceNo?: string | null
     createdAt?: Date | string
   }
 
@@ -14112,8 +13881,6 @@ export namespace Prisma {
     lotNo?: IntFieldUpdateOperationsInput | number
     sqm?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumLotStatusFieldUpdateOperationsInput | $Enums.LotStatus
-    streetName?: NullableStringFieldUpdateOperationsInput | string | null
-    mapShape?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     block?: BlockUpdateOneRequiredWithoutLotsNestedInput
@@ -14127,8 +13894,6 @@ export namespace Prisma {
     lotTypeId?: IntFieldUpdateOperationsInput | number
     sqm?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumLotStatusFieldUpdateOperationsInput | $Enums.LotStatus
-    streetName?: NullableStringFieldUpdateOperationsInput | string | null
-    mapShape?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -14149,7 +13914,6 @@ export namespace Prisma {
     fullName?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
-    homeAddress?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -14159,7 +13923,6 @@ export namespace Prisma {
     fullName?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     email?: NullableStringFieldUpdateOperationsInput | string | null
-    homeAddress?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -14211,7 +13974,6 @@ export namespace Prisma {
     amount?: DecimalFilter<"Payment"> | Decimal | DecimalJsLike | number | string
     paidOn?: DateTimeFilter<"Payment"> | Date | string
     paymentType?: EnumPaymentTypeFilter<"Payment"> | $Enums.PaymentType
-    referenceNo?: StringNullableFilter<"Payment"> | string | null
     createdAt?: DateTimeFilter<"Payment"> | Date | string
   }
 
@@ -14364,7 +14126,6 @@ export namespace Prisma {
     amount: Decimal | DecimalJsLike | number | string
     paidOn: Date | string
     paymentType: $Enums.PaymentType
-    referenceNo?: string | null
     createdAt?: Date | string
     contract: ContractCreateNestedOneWithoutPaymentsInput
   }
@@ -14375,7 +14136,6 @@ export namespace Prisma {
     amount: Decimal | DecimalJsLike | number | string
     paidOn: Date | string
     paymentType: $Enums.PaymentType
-    referenceNo?: string | null
     createdAt?: Date | string
   }
 
@@ -14411,8 +14171,6 @@ export namespace Prisma {
     lotTypeId: number
     sqm: Decimal | DecimalJsLike | number | string
     status?: $Enums.LotStatus
-    streetName?: string | null
-    mapShape?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -14422,8 +14180,6 @@ export namespace Prisma {
     lotNo?: IntFieldUpdateOperationsInput | number
     sqm?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumLotStatusFieldUpdateOperationsInput | $Enums.LotStatus
-    streetName?: NullableStringFieldUpdateOperationsInput | string | null
-    mapShape?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     lotType?: LotTypeUpdateOneRequiredWithoutLotsNestedInput
@@ -14436,8 +14192,6 @@ export namespace Prisma {
     lotTypeId?: IntFieldUpdateOperationsInput | number
     sqm?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumLotStatusFieldUpdateOperationsInput | $Enums.LotStatus
-    streetName?: NullableStringFieldUpdateOperationsInput | string | null
-    mapShape?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     contract?: ContractUncheckedUpdateOneWithoutLotNestedInput
@@ -14449,8 +14203,6 @@ export namespace Prisma {
     lotTypeId?: IntFieldUpdateOperationsInput | number
     sqm?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumLotStatusFieldUpdateOperationsInput | $Enums.LotStatus
-    streetName?: NullableStringFieldUpdateOperationsInput | string | null
-    mapShape?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -14461,8 +14213,6 @@ export namespace Prisma {
     lotNo: number
     sqm: Decimal | DecimalJsLike | number | string
     status?: $Enums.LotStatus
-    streetName?: string | null
-    mapShape?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -14472,8 +14222,6 @@ export namespace Prisma {
     lotNo?: IntFieldUpdateOperationsInput | number
     sqm?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumLotStatusFieldUpdateOperationsInput | $Enums.LotStatus
-    streetName?: NullableStringFieldUpdateOperationsInput | string | null
-    mapShape?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     block?: BlockUpdateOneRequiredWithoutLotsNestedInput
@@ -14486,8 +14234,6 @@ export namespace Prisma {
     lotNo?: IntFieldUpdateOperationsInput | number
     sqm?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumLotStatusFieldUpdateOperationsInput | $Enums.LotStatus
-    streetName?: NullableStringFieldUpdateOperationsInput | string | null
-    mapShape?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     contract?: ContractUncheckedUpdateOneWithoutLotNestedInput
@@ -14499,8 +14245,6 @@ export namespace Prisma {
     lotNo?: IntFieldUpdateOperationsInput | number
     sqm?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     status?: EnumLotStatusFieldUpdateOperationsInput | $Enums.LotStatus
-    streetName?: NullableStringFieldUpdateOperationsInput | string | null
-    mapShape?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -14643,7 +14387,6 @@ export namespace Prisma {
     amount: Decimal | DecimalJsLike | number | string
     paidOn: Date | string
     paymentType: $Enums.PaymentType
-    referenceNo?: string | null
     createdAt?: Date | string
   }
 
@@ -14652,7 +14395,6 @@ export namespace Prisma {
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     paidOn?: DateTimeFieldUpdateOperationsInput | Date | string
     paymentType?: EnumPaymentTypeFieldUpdateOperationsInput | $Enums.PaymentType
-    referenceNo?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     recorder?: UserUpdateOneRequiredWithoutPaymentsNestedInput
   }
@@ -14663,7 +14405,6 @@ export namespace Prisma {
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     paidOn?: DateTimeFieldUpdateOperationsInput | Date | string
     paymentType?: EnumPaymentTypeFieldUpdateOperationsInput | $Enums.PaymentType
-    referenceNo?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -14673,7 +14414,6 @@ export namespace Prisma {
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     paidOn?: DateTimeFieldUpdateOperationsInput | Date | string
     paymentType?: EnumPaymentTypeFieldUpdateOperationsInput | $Enums.PaymentType
-    referenceNo?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -14683,7 +14423,6 @@ export namespace Prisma {
     amount: Decimal | DecimalJsLike | number | string
     paidOn: Date | string
     paymentType: $Enums.PaymentType
-    referenceNo?: string | null
     createdAt?: Date | string
   }
 
@@ -14692,7 +14431,6 @@ export namespace Prisma {
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     paidOn?: DateTimeFieldUpdateOperationsInput | Date | string
     paymentType?: EnumPaymentTypeFieldUpdateOperationsInput | $Enums.PaymentType
-    referenceNo?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     contract?: ContractUpdateOneRequiredWithoutPaymentsNestedInput
   }
@@ -14703,7 +14441,6 @@ export namespace Prisma {
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     paidOn?: DateTimeFieldUpdateOperationsInput | Date | string
     paymentType?: EnumPaymentTypeFieldUpdateOperationsInput | $Enums.PaymentType
-    referenceNo?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -14713,7 +14450,6 @@ export namespace Prisma {
     amount?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     paidOn?: DateTimeFieldUpdateOperationsInput | Date | string
     paymentType?: EnumPaymentTypeFieldUpdateOperationsInput | $Enums.PaymentType
-    referenceNo?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
