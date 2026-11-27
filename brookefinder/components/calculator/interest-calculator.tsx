@@ -90,7 +90,7 @@ export function InterestCalculator({
     <div className="grid gap-6 lg:grid-cols-[22rem_1fr]">
       <section className="space-y-5 rounded-xl border border-violet-200 bg-white p-5">
         <div className="space-y-2">
-          <Label>Lot</Label>
+          <Label>Block & Lot</Label>
           <Select value={lotId} onValueChange={onLotChange}>
             <SelectTrigger>
               <SelectValue />
