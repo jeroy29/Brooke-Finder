@@ -21,7 +21,7 @@ function Row({ label, children }: { label: string; children: React.ReactNode }) 
 }
 
 export function lotAddress(lot: LotDTO) {
-  return [`Block ${lot.blockNo}, Lot ${lot.lotNo}`, lot.streetName, "Hidden Brooke Executive Village"]
+  return [`Block ${lot.blockNo}, Lot ${lot.lotNo}`, "Hidden Brooke Executive Village"]
     .filter(Boolean)
     .join(", ");
 }
