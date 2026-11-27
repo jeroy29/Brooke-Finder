@@ -32,6 +32,6 @@ export async function requireUser() {
 /** Admins only. A regular user is sent to their own home page. */
 export async function requireAdmin() {
   const user = await requireUser();
-  if (user.role !== "ADMIN") redirect("/home");
+  if (user.role !== "ADMIN") redirect("/map");
   return user;
 }
